@@ -11,7 +11,8 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: { origin: '*' },
-  methods: ['GET', 'POST']
+  methods: ['GET', 'POST'],
+  credentials: true
 });
 
 // Middlewares
@@ -27,6 +28,6 @@ app.use('/api/song', songRoutes);
 require('./socket')(io);
 
 const PORT = process.env.PORT || 3001;
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`Server listening on port ${PORT}`);
 });
