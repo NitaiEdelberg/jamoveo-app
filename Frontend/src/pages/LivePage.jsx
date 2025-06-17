@@ -34,7 +34,7 @@ function LivePage() {
       return;
     }
     setLoading(true);
-    axios.get(`http://localhost:3001/api/song/${songFileName}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/api/song/${songFileName}`)
       .then(res => setSong(res.data.songData))
       .finally(() => setLoading(false));
   }, [songFileName, navigate]);

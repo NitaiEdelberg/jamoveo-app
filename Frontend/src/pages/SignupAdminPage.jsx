@@ -16,7 +16,7 @@ function SignupAdminPage() {
     e.preventDefault();
     setError('');
     try {
-      await axios.post('http://localhost:3001/api/auth/signup', {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/signup`, {
         ...form,
         isAdmin: true
       });

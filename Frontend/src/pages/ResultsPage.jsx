@@ -22,7 +22,7 @@ function ResultsPage() {
       return;
     }
     setLoading(true);
-    axios.get(`http://localhost:3001/api/song/search?q=${encodeURIComponent(query)}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/api/song/search?q=${encodeURIComponent(query)}`)
       .then(res => setResults(res.data.results))
       .finally(() => setLoading(false));
   }, [query, navigate]);
