@@ -1,5 +1,5 @@
 const express = require('express');
-const { rehearsals } = require('../db'); // local memory
+const rehearsals = require('../db/rehearsals'); // local memory
 const Rehearsal = require('../models/rehearsal');
 const router = express.Router();
 
