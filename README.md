@@ -46,6 +46,7 @@ npm run dev
 ```
 
 Website will open at: [http://localhost:5173](http://localhost:5173).
+
 you sould change the backend in the env to localhost.
 
 ## Register
