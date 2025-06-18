@@ -3,11 +3,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function SignupPage() {
-  const [form, setForm] = useState({ username: '', password: '', instrument: '', isAdmin: false });
+  const [form, setForm] = useState({ username: '', password: '', instrument: '', isAdmin: false }); //use state to manage form data
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleChange = e => {
+  const handleChange = e => { // handle input changes
     const { name, value, type, checked } = e.target;
     setForm(prev => ({
       ...prev,
@@ -15,7 +15,7 @@ function SignupPage() {
     }));
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async e => { //form submission handler
     e.preventDefault();
     setError('');
     try {

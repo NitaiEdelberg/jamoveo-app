@@ -1,5 +1,5 @@
 const express = require('express');
-const { rehearsals } = require('../db');
+const { rehearsals } = require('../db'); // local memory
 const Rehearsal = require('../models/rehearsal');
 const router = express.Router();
 
@@ -10,7 +10,7 @@ router.post('/create', (req, res) => {
   if (!adminUser || !adminUser.isAdmin) {
     return res.status(403).json({ error: 'Only admin can create a rehearsal' });
   }
-  const newRehearsal = new Rehearsal(1, adminUserId);
+  const newRehearsal = new Rehearsal(1, adminUserId); // assuming 1 rehearsal at a time
   rehearsals.push(newRehearsal);
   res.status(201).json({ message: 'rehearsal created', rehearsal: newRehearsal });
 });

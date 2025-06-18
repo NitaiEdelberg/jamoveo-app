@@ -16,9 +16,9 @@ function LoginPage() {
     e.preventDefault();
     setError('');
     try {
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, form);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, form); // Send login request to the server using axios
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
+      localStorage.setItem('user', JSON.stringify(res.data.user)); // Store user data in localStorage
       navigate('/main');
     } catch (err) {
       setError(err.response?.data?.error || "Login failed");
