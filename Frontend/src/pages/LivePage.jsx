@@ -53,11 +53,8 @@ function LivePage() {
 useEffect(() => {
   if (isScrolling) {
     scrollIntervalRef.current = setInterval(() => {
-      const scrollEl = scrollRef.current;
-      if (scrollEl) {
-        scrollEl.scrollTop = scrollEl.scrollTop += 0.5;
-      }
-    }, 25); // around 40 pixels per second
+      window.scrollBy(0, 0.5); // scroll down by 0.5 pixels
+    }, 25);
   } else if (scrollIntervalRef.current) {
     clearInterval(scrollIntervalRef.current);
     scrollIntervalRef.current = null;
