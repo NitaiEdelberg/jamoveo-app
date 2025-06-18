@@ -25,6 +25,7 @@ function LivePage() {
 
   const [isScrolling, setIsScrolling] = useState(false);
   const scrollIntervalRef = useRef(null);
+  const scrollRef = useRef(null); // reference the content div
 
   const songFileName = new URLSearchParams(location.search).get('song');
 
@@ -48,10 +49,10 @@ function LivePage() {
     };
   }, [navigate]);
 
-  useEffect(() => {
-    if (isScrolling) {
+  useEffect(() => { // Handle scrolling div
+    if (isScrolling && scrollRef.current) {
       scrollIntervalRef.current = setInterval(() => {
-        document.scrollingElement.scrollBy({ top: 1, behavior: 'smooth' }); // for scrolling in phones
+        scrollRef.current.scrollBy({ top: 1, behavior: 'smooth' });
       }, 30);
     } else if (scrollIntervalRef.current) {
       clearInterval(scrollIntervalRef.current);
@@ -88,7 +89,17 @@ function LivePage() {
         <h1 className="text-center mb-4 fw-bold" style={{ fontSize: 36 }}>
           {songFileName.replace('.json', '')}
         </h1>
-        <div style={{ fontSize: 24, marginBottom: 16 }}>
+        {/*scrolling area */}
+        <div
+          ref={scrollRef}
+          style={{
+            maxHeight: '75vh',
+            overflowY: 'auto',
+            fontSize: 24,
+            marginBottom: 16,
+            width: '100%',
+          }}
+        >
           {song.map((line, idx) => (
             <div
               key={idx}
