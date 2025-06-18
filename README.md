@@ -23,7 +23,7 @@ Musicians and singers can log in from their computer or phone, join a rehearsal 
 * Everything updates in real time thanks to socket.io so no refresh needed
 
 ## How to run 
-The web app is Deployed, so you can visit it here: TODO
+The web app is Deployed, so you can visit it here: [JaMoveo](https://jam-oveo.netlify.app/).
 
 ## How to run locally
 
@@ -45,7 +45,8 @@ npm install
 npm run dev
 ```
 
-Website will open at: [http://localhost:5173](http://localhost:5173)
+Website will open at: [http://localhost:5173](http://localhost:5173).
+you sould change the backend in the env to localhost.
 
 ## Register
 
