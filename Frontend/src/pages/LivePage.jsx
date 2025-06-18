@@ -55,9 +55,9 @@ useEffect(() => {
     scrollIntervalRef.current = setInterval(() => {
       const scrollEl = scrollRef.current;
       if (scrollEl) {
-        scrollEl.scrollTop = scrollEl.scrollTop + 1; // עובד גם באייפון
+        scrollEl.scrollTop = scrollEl.scrollTop += 0.5;
       }
-    }, 30);
+    }, 25); // around 40 pixels per second
   } else if (scrollIntervalRef.current) {
     clearInterval(scrollIntervalRef.current);
     scrollIntervalRef.current = null;
