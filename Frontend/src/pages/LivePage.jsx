@@ -27,7 +27,7 @@ function LivePage() {
   const scrollIntervalRef = useRef(null);
   const scrollRef = useRef(null);
 
-  const songFileName = new URLSearchParams(location.search).get('song');
+  const songFileName = new URLSearchParams(location.search).get('song'); // Get song file name from URL parameters
 
   useEffect(() => {
     if (!songFileName) {
@@ -35,13 +35,13 @@ function LivePage() {
       return;
     }
     setLoading(true);
-    axios.get(`${import.meta.env.VITE_API_URL}/api/song/${songFileName}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/api/song/${songFileName}`) // Fetch song data and then set it
       .then(res => setSong(res.data.songData))
       .finally(() => setLoading(false));
   }, [songFileName, navigate]);
 
   useEffect(() => {
-    socket.on('quitRehearsal', () => {
+    socket.on('quitRehearsal', () => { // Listen for quit rehearsal event
       navigate('/main');
     });
     return () => {
@@ -55,11 +55,11 @@ function LivePage() {
       scrollIntervalRef.current = setInterval(() => {
         const el = scrollRef.current;
         if (el) {
-          el.scrollTop = el.scrollTop + 2;
+          el.scrollTop = el.scrollTop + 1.5; // for phone scrolling, done by scrolling the container
         }
       }, 25);
     } else if (scrollIntervalRef.current) {
-      clearInterval(scrollIntervalRef.current);
+      clearInterval(scrollIntervalRef.current); // Clear the interval when scrolling stops.
       scrollIntervalRef.current = null;
     }
     return () => {
@@ -71,15 +71,18 @@ function LivePage() {
   }, [isScrolling]);
 
   const handleQuit = () => {
-    socket.emit('quitRehearsal');
+    socket.emit('quitRehearsal'); // if quit rehearsal, emit the event to the server and move to main page.
     navigate('/main');
   };
 
   if (loading) return <div className="text-center mt-5">Loading song...</div>;
   if (!song) return <div className="text-center mt-5">Song not found.</div>;
 
-  const showChords = !isSinger();
+  const showChords = !isSinger(); // Show chords only if the user is not a singer
 
+//  botstrap syntax: minHight is for the container to take full height of the screen, position relative is for the button to be positioned correctly 
+// /[\u0590-\u05FF]/ is a regex to check for Hebrew characters, then direction is set to right to left 
+// WebkitOverflowScrolling is for scrolling on iOS devices to be smooth
   return (
     <div
       className="d-flex align-items-center justify-content-center"

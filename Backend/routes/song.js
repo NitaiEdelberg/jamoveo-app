@@ -12,7 +12,7 @@ router.get('/search', (req, res) => {
     const results = [];
     files.forEach(file => {
       if (file.endsWith('.json')) {
-        const songData = require(path.join(SONGS_DIR, file));
+        const songData = require(path.join(SONGS_DIR, file)); // Load song data
         const songName = file.replace('.json', '');
         const artist = songData.artist || '';
         if (
@@ -27,14 +27,14 @@ router.get('/search', (req, res) => {
         }
       }
     });
-    res.status(200).json({ results });
+    res.status(200).json({ results }); // Return the results
   });
 });
 
 router.get('/:fileName', (req, res) => {
   const { fileName } = req.params;
   try {
-    const songData = require(path.join(SONGS_DIR, fileName));
+    const songData = require(path.join(SONGS_DIR, fileName)); // Load song data
     res.status(200).json({ songData });
   } catch (err) {
     res.status(404).json({ error: 'Song not found' });

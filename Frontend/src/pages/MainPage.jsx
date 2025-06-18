@@ -16,11 +16,11 @@ function MainPage() {
       return;
     }
     const userObj = JSON.parse(userStr);
-    setUser(userObj);
+    setUser(userObj); // Set user state from localStorage
 
-    socket.emit('joinRehearsal', { ...userObj, socketId: socket.id });
+    socket.emit('joinRehearsal', { ...userObj, socketId: socket.id }); // Join the rehearsal room with user info, using socket.io
 
-    socket.on('liveSong', (song) => {
+    socket.on('liveSong', (song) => { // Listen for live song updates
       setLiveSong(song);
       if (song) {
         navigate(`/live?song=${song.fileName}`);
@@ -37,10 +37,10 @@ function MainPage() {
     };
   }, [navigate]);
 
-  const handleSearch = e => {
+  const handleSearch = e => { // Handle search form submission
     e.preventDefault();
     if (searchQuery.trim() === '') return;
-    navigate(`/results?q=${encodeURIComponent(searchQuery)}`);
+    navigate(`/results?q=${encodeURIComponent(searchQuery)}`); // Navigate to results page with search query
   };
 
   if (error) return <div className="alert alert-danger">{error}</div>;

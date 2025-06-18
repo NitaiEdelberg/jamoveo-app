@@ -9,6 +9,7 @@ const songRoutes = require('./routes/song');
 const app = express();
 const server = http.createServer(app);
 
+// Initialize socket.io with the server
 const io = new Server(server, {
   cors: { origin: '*' },
   methods: ['GET', 'POST'],

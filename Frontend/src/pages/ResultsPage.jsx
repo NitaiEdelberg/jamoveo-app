@@ -9,7 +9,7 @@ function ResultsPage() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const query = new URLSearchParams(location.search).get('q');
+  const query = new URLSearchParams(location.search).get('q'); // Get the search query from URL parameters
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -28,8 +28,8 @@ function ResultsPage() {
   }, [query, navigate]);
 
   const handleSelectSong = song => {
-    socket.emit('selectSong', { ...song });
-    navigate(`/live?song=${encodeURIComponent(song.fileName)}`);
+    socket.emit('selectSong', { ...song }); // Emit the selected song to the server
+    navigate(`/live?song=${encodeURIComponent(song.fileName)}`); //move to live page with the selected song
   };
 
   if (loading) return (

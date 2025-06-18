@@ -11,7 +11,7 @@ router.post('/signup', async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ error: 'Username already exists' });
     }
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password, 10); // Hash the password with bcrypt
     await createUser({ username, passwordHash, instrument, isAdmin: !!isAdmin });
     console.log(`New user created: ${username}`);
     res.status(201).json({ message: 'User created' });
@@ -28,12 +28,13 @@ router.post('/login', async (req, res) => {
     if (!user || !(await bcrypt.compare(password, user.password_hash))) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-    const token = jwt.sign(
+    const token = jwt.sign( // Create JWT token for the user
       { id: user.id, username: user.username, isAdmin: user.is_admin, instrument: user.instrument },
       'jamoveo-secret',
       { expiresIn: '24h' }
     );
     console.log(`${username} logged in successfully`);
+    // Return the token and user info for later check of authorization
     res.json({
       token,
       user: {
