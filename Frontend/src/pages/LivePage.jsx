@@ -25,7 +25,7 @@ function LivePage() {
 
   const [isScrolling, setIsScrolling] = useState(false);
   const scrollIntervalRef = useRef(null);
-  const scrollRef = useRef(null); // reference the content div
+  const scrollRef = useRef(null);
 
   const songFileName = new URLSearchParams(location.search).get('song');
 
@@ -49,10 +49,16 @@ function LivePage() {
     };
   }, [navigate]);
 
-  useEffect(() => { // Handle scrolling div
-    if (isScrolling && scrollRef.current) {
+  // scroll handling
+  useEffect(() => {
+    if (isScrolling) {
       scrollIntervalRef.current = setInterval(() => {
-        scrollRef.current.scrollBy({ top: 1, behavior: 'smooth' });
+        const scrollEl = scrollRef.current;
+        if (scrollEl && scrollEl.scrollBy) {
+          scrollEl.scrollBy({ top: 1, behavior: 'smooth' });
+        } else {
+          window.scrollBy({ top: 1, behavior: 'smooth' });
+        }
       }, 30);
     } else if (scrollIntervalRef.current) {
       clearInterval(scrollIntervalRef.current);
@@ -92,9 +98,11 @@ function LivePage() {
         {/*scrolling area */}
         <div
           ref={scrollRef}
+          className="scroll-area"
           style={{
             maxHeight: '75vh',
             overflowY: 'auto',
+            WebkitOverflowScrolling: 'touch',
             fontSize: 24,
             marginBottom: 16,
             width: '100%',
