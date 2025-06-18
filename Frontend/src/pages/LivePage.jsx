@@ -49,24 +49,26 @@ function LivePage() {
     };
   }, [navigate]);
 
-  // scroll handling
-useEffect(() => {
-  if (isScrolling) {
-    scrollIntervalRef.current = setInterval(() => {
-      window.scrollBy(0, 0.5); // scroll down by 0.5 pixels
-    }, 25);
-  } else if (scrollIntervalRef.current) {
-    clearInterval(scrollIntervalRef.current);
-    scrollIntervalRef.current = null;
-  }
-  return () => {
-    if (scrollIntervalRef.current) {
+  // container scroll effect
+  useEffect(() => {
+    if (isScrolling) {
+      scrollIntervalRef.current = setInterval(() => {
+        const el = scrollRef.current;
+        if (el) {
+          el.scrollTop = el.scrollTop + 2;
+        }
+      }, 25);
+    } else if (scrollIntervalRef.current) {
       clearInterval(scrollIntervalRef.current);
       scrollIntervalRef.current = null;
     }
-  };
-}, [isScrolling]);
-
+    return () => {
+      if (scrollIntervalRef.current) {
+        clearInterval(scrollIntervalRef.current);
+        scrollIntervalRef.current = null;
+      }
+    };
+  }, [isScrolling]);
 
   const handleQuit = () => {
     socket.emit('quitRehearsal');
@@ -91,10 +93,8 @@ useEffect(() => {
         <h1 className="text-center mb-4 fw-bold" style={{ fontSize: 36 }}>
           {songFileName.replace('.json', '')}
         </h1>
-        {/*scrolling area */}
         <div
           ref={scrollRef}
-          className="scroll-area"
           style={{
             maxHeight: '75vh',
             overflowY: 'auto',
