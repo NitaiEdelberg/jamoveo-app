@@ -50,27 +50,26 @@ function LivePage() {
   }, [navigate]);
 
   // scroll handling
-  useEffect(() => {
-    if (isScrolling) {
-      scrollIntervalRef.current = setInterval(() => {
-        const scrollEl = scrollRef.current;
-        if (scrollEl && scrollEl.scrollBy) {
-          scrollEl.scrollBy({ top: 1, behavior: 'smooth' });
-        } else {
-          window.scrollBy({ top: 1, behavior: 'smooth' });
-        }
-      }, 30);
-    } else if (scrollIntervalRef.current) {
+useEffect(() => {
+  if (isScrolling) {
+    scrollIntervalRef.current = setInterval(() => {
+      const scrollEl = scrollRef.current;
+      if (scrollEl) {
+        scrollEl.scrollTop = scrollEl.scrollTop += 0.5;
+      }
+    }, 25); // around 40 pixels per second
+  } else if (scrollIntervalRef.current) {
+    clearInterval(scrollIntervalRef.current);
+    scrollIntervalRef.current = null;
+  }
+  return () => {
+    if (scrollIntervalRef.current) {
       clearInterval(scrollIntervalRef.current);
       scrollIntervalRef.current = null;
     }
-    return () => {
-      if (scrollIntervalRef.current) {
-        clearInterval(scrollIntervalRef.current);
-        scrollIntervalRef.current = null;
-      }
-    };
-  }, [isScrolling]);
+  };
+}, [isScrolling]);
+
 
   const handleQuit = () => {
     socket.emit('quitRehearsal');
