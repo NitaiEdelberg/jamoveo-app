@@ -51,7 +51,7 @@ function LivePage() {
   useEffect(() => {
     if (isScrolling) {
       scrollIntervalRef.current = setInterval(() => {
-        window.scrollBy({ top: 1, behavior: 'smooth' });
+        document.scrollingElement.scrollBy({ top: 1, behavior: 'smooth' }); // for scrolling in phones
       }, 30);
     } else if (scrollIntervalRef.current) {
       clearInterval(scrollIntervalRef.current);
