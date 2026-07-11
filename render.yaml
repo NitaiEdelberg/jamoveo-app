@@ -1,0 +1,16 @@
+# Render Blueprint for the JaMoveo backend (Node + Express + Socket.io).
+# Deploy: Render Dashboard -> New -> Blueprint -> pick this repo.
+# You must set DATABASE_URL (Supabase Postgres) in the Render dashboard after creation.
+services:
+  - type: web
+    name: jamoveo-backend
+    runtime: node
+    rootDir: Backend
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        sync: false          # set this yourself in the dashboard (secret)
+      - key: JWT_SECRET
+        generateValue: true  # Render generates a strong random value
