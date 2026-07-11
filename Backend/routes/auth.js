@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
     }
     const token = jwt.sign( // Create JWT token for the user
       { id: user.id, username: user.username, isAdmin: user.is_admin, instrument: user.instrument },
-      'jamoveo-secret',
+      process.env.JWT_SECRET || 'jamoveo-secret',
       { expiresIn: '24h' }
     );
     console.log(`${username} logged in successfully`);
