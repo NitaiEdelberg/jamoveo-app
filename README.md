@@ -1,62 +1,84 @@
-# JaMoveo: Moveo Rehearsal App
+<p align="center">
+  <img src="docs/banner.svg" alt="Tutti — play music together, in sync" width="100%">
+</p>
 
-Home assignment by Nitai Edelberg
+<p align="center">
+  <b>Tutti</b> is a real-time web app for band rehearsals and jam sessions. A session
+  leader picks a song and it opens <i>live</i> on everyone's screen at once — chords for
+  the players, lyrics-only for the singers.
+  <br><br>
+  🌐 <a href="https://jam-oveo.netlify.app/"><b>Live app</b></a>
+</p>
+
+> *Tutti* (Italian, "all together") is the musical direction for the whole ensemble to play at once — which is exactly what this app coordinates. *(Originally built as the "Moveo" rehearsal home assignment.)*
+
+---
+
+## Screens
+
+<p align="center">
+  <img src="docs/screens.svg" alt="Login, session-leader home, and the live song view" width="100%">
+</p>
+
+> The graphic above is a UI mockup of the three main screens. See the [live app](https://jam-oveo.netlify.app/) for the real thing.
 
 ## About
 
-JaMoveo is a web app for managing live music sessions for bands and friends.
-Musicians and singers can log in from their computer or phone, join a rehearsal and play together in real time.
+Musicians and singers log in from a laptop or phone and join one shared rehearsal room.
+The **session leader** searches for a song and selects it; everyone in the room is taken
+to the live view instantly. No refreshing — updates are pushed over WebSockets.
 
-**Built with:**
+**Built with**
 
-* Node.js (Express) backend
-* React + Bootstrap frontend
-* PostgreSQL (Supabase) database
-* socket.io for live updates
+* **React + Vite + Bootstrap** — frontend (Netlify)
+* **Node.js (Express)** — backend API (Render)
+* **Socket.IO** — real-time song sync across all connected clients
+* **PostgreSQL (Supabase)** — user accounts
+* **JWT + bcrypt** — authentication
 
 ## How it works
 
-* Users sign up (musicians or admin)
-* Admin creates a new rehearsal session
-* Admin searches for a song and picks it for the group
-* Everyone in the session sees the song, with chords for musicians and only lyrics for singers
-* Everything updates in real time thanks to socket.io so no refresh needed
+1. Users sign up as a **player** (with an instrument) or a **session leader** (admin).
+2. Everyone who logs in joins one shared room and sees a live count of who's in it.
+3. The leader searches for a song and picks it — it opens **live for everyone at once**.
+4. Players see **chords above the lyrics**; singers see **lyrics only**.
+5. The leader controls **auto-scroll** and can **Quit** the song to bring everyone back.
 
-## How to run 
-The web app is Deployed, so you can visit it here: [JaMoveo](https://jam-oveo.netlify.app/).
+## Security
 
-## How to run locally
+* Passwords are hashed with **bcrypt**; login issues a signed **JWT**.
+* Every **Socket.IO** connection is verified against that token server-side — connections
+  with no/invalid token are rejected.
+* The song-control events (`selectSong`, `quitRehearsal`) are authorized **on the server**
+  from the verified identity, so only the real session leader can drive the room — a
+  client can't gain control by faking an `isAdmin` flag locally.
 
-you would need the .env variables, so contact me or chose your own postgresql DB URI.
+## Run locally
 
-**Backend:**
+You'll need the backend `.env` values (a PostgreSQL URI, e.g. Supabase, and a `JWT_SECRET`).
 
-```
+**Backend**
+
+```bash
 cd Backend
 npm install
 npm start
 ```
 
-**Frontend:**
+**Frontend**
 
-```
+```bash
 cd Frontend
 npm install
-npm run dev
+npm run dev      # opens http://localhost:5173
 ```
 
-Website will open at: [http://localhost:5173](http://localhost:5173).
+Point the frontend's `VITE_API_URL` at your backend (e.g. `http://localhost:3001`).
 
-you sould change the backend in the env to localhost.
+### Sign-up routes
 
-## Register
-
-* Regular user: `/signup`
-* Admin user: `/signup-admin`
-
-## Why socket.io?
-
-We need real-time connection so when the admin picks a song all users see it immediately
+* Player: `/signup`
+* Session leader (admin): `/signup-admin`
 
 ---
 

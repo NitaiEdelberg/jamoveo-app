@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Tutti">
+  <rect width="64" height="64" rx="15" fill="#0d9488"/>
+  <g fill="#ffffff">
+    <!-- beamed pair of eighth notes = "playing together" -->
+    <rect x="25" y="15" width="4" height="27" rx="2"/>
+    <rect x="43" y="13" width="4" height="25" rx="2"/>
+    <path d="M25 15 L47 12 L47 20 L25 23 Z"/>
+    <ellipse cx="22.5" cy="43" rx="7.5" ry="6"/>
+    <ellipse cx="40.5" cy="39" rx="7.5" ry="6"/>
+  </g>
+</svg>

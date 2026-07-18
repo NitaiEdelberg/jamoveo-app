@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 520" width="920" height="520" font-family="Segoe UI, Helvetica, Arial, sans-serif" role="img" aria-label="Tutti screens: login, session leader, and live song view">
+  <rect width="920" height="520" fill="#f8f9fa"/>
+
+  <!-- ===== Panel 1: Login ===== -->
+  <g transform="translate(30,60)">
+    <rect width="270" height="400" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+    <!-- wordmark -->
+    <text x="135" y="60" text-anchor="middle" font-size="30" font-weight="800" fill="#0d9488">🎵 Tutti</text>
+    <text x="135" y="82" text-anchor="middle" font-size="11" fill="#9ca3af">Everyone on the same song.</text>
+    <text x="135" y="120" text-anchor="middle" font-size="19" font-weight="600" fill="#111827">Login</text>
+    <rect x="30" y="140" width="210" height="38" rx="7" fill="#fff" stroke="#d1d5db"/>
+    <text x="42" y="164" font-size="13" fill="#9ca3af">Username</text>
+    <rect x="30" y="190" width="210" height="38" rx="7" fill="#fff" stroke="#d1d5db"/>
+    <text x="42" y="214" font-size="13" fill="#9ca3af">Password</text>
+    <rect x="30" y="245" width="210" height="40" rx="7" fill="#0d6efd"/>
+    <text x="135" y="270" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">Login</text>
+    <text x="135" y="315" text-anchor="middle" font-size="12" fill="#6b7280">No account? <tspan fill="#0d6efd">Sign Up</tspan></text>
+    <text x="135" y="336" text-anchor="middle" font-size="11" fill="#6b7280">Admin? <tspan fill="#0d6efd">Sign Up as Admin</tspan></text>
+    <text x="135" y="378" text-anchor="middle" font-size="11" fill="#9ca3af">Log in</text>
+  </g>
+
+  <!-- ===== Panel 2: Session leader home ===== -->
+  <g transform="translate(325,60)">
+    <rect width="270" height="400" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+    <text x="135" y="46" text-anchor="middle" font-size="22" font-weight="800" fill="#0d9488">🎵 Tutti</text>
+    <text x="30" y="82" font-size="15" font-weight="700" fill="#0d9488">Welcome, Nitai!</text>
+    <rect x="190" y="68" width="52" height="22" rx="6" fill="#fff" stroke="#dc3545"/>
+    <text x="216" y="83" text-anchor="middle" font-size="11" fill="#dc3545">Logout</text>
+    <!-- badges -->
+    <rect x="42" y="100" width="112" height="24" rx="12" fill="#198754"/>
+    <text x="98" y="116" text-anchor="middle" font-size="11" fill="#fff">🟢 In the room: 3</text>
+    <rect x="160" y="100" width="78" height="24" rx="12" fill="#6c757d"/>
+    <text x="199" y="116" text-anchor="middle" font-size="10" fill="#fff">🎙️ leader</text>
+    <!-- how it works -->
+    <rect x="30" y="138" width="210" height="70" rx="8" fill="#f8f9fa" stroke="#e5e7eb"/>
+    <text x="42" y="158" font-size="11" font-weight="700" fill="#374151">How it works:</text>
+    <text x="42" y="176" font-size="10" fill="#6b7280">Search a song and pick it — it</text>
+    <text x="42" y="190" font-size="10" fill="#6b7280">opens live for everyone in the</text>
+    <text x="42" y="204" font-size="10" fill="#6b7280">room at the same time.</text>
+    <!-- search -->
+    <rect x="30" y="228" width="210" height="38" rx="7" fill="#fff" stroke="#d1d5db"/>
+    <text x="42" y="252" font-size="12" fill="#9ca3af">Search by name or artist</text>
+    <rect x="30" y="278" width="210" height="40" rx="7" fill="#0d6efd"/>
+    <text x="135" y="303" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">Search</text>
+  </g>
+
+  <!-- ===== Panel 3: Live song view ===== -->
+  <g transform="translate(620,60)">
+    <rect width="270" height="400" rx="14" fill="#ffffff" stroke="#e5e7eb"/>
+    <text x="135" y="46" text-anchor="middle" font-size="22" font-weight="800" fill="#111827">Hey Jude</text>
+    <line x1="24" y1="62" x2="246" y2="62" stroke="#eee"/>
+    <!-- chord + lyric lines (chords in teal above lyrics) -->
+    <g font-size="13">
+      <text x="40" y="100" fill="#0dcaf0" font-weight="700">F</text>
+      <text x="40" y="118" fill="#111827">Hey</text>
+      <text x="90" y="100" fill="#0dcaf0" font-weight="700">C</text>
+      <text x="90" y="118" fill="#111827">Jude,</text>
+      <text x="150" y="118" fill="#111827">don't</text>
+      <text x="200" y="100" fill="#0dcaf0" font-weight="700">C7</text>
+      <text x="200" y="118" fill="#111827">make</text>
+
+      <text x="40" y="152" fill="#0dcaf0" font-weight="700">F</text>
+      <text x="40" y="170" fill="#111827">it</text>
+      <text x="72" y="170" fill="#111827">bad.</text>
+      <text x="130" y="152" fill="#0dcaf0" font-weight="700">Bb</text>
+      <text x="130" y="170" fill="#111827">Take a</text>
+
+      <text x="40" y="204" fill="#0dcaf0" font-weight="700">F</text>
+      <text x="40" y="222" fill="#111827">sad</text>
+      <text x="86" y="222" fill="#111827">song</text>
+      <text x="140" y="204" fill="#0dcaf0" font-weight="700">C</text>
+      <text x="140" y="222" fill="#111827">and make</text>
+    </g>
+    <text x="135" y="262" text-anchor="middle" font-size="10" fill="#9ca3af">chords shown to players · lyrics only to singers</text>
+    <!-- leader-only scroll pill -->
+    <rect x="30" y="320" width="104" height="34" rx="17" fill="#212529"/>
+    <text x="82" y="342" text-anchor="middle" font-size="12" fill="#fff">▶ Start Scroll</text>
+    <rect x="150" y="320" width="90" height="34" rx="8" fill="#dc3545"/>
+    <text x="195" y="342" text-anchor="middle" font-size="12" fill="#fff">Quit</text>
+    <text x="135" y="378" text-anchor="middle" font-size="9" fill="#9ca3af">Auto-scroll &amp; Quit are leader-only</text>
+  </g>
+
+  <!-- captions -->
+  <text x="165" y="490" text-anchor="middle" font-size="13" font-weight="600" fill="#374151">1 · Log in</text>
+  <text x="460" y="490" text-anchor="middle" font-size="13" font-weight="600" fill="#374151">2 · Leader picks a song</text>
+  <text x="755" y="490" text-anchor="middle" font-size="13" font-weight="600" fill="#374151">3 · Everyone plays, in sync</text>
+</svg>
