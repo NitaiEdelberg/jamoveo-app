@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import socket from '../socket';
+import { Wordmark, BRAND_COLOR } from '../brand';
 
 function MainPage() {
   const navigate = useNavigate();
@@ -8,6 +9,7 @@ function MainPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState('');
   const [liveSong, setLiveSong] = useState(null);
+  const [roomCount, setRoomCount] = useState(0);
 
   useEffect(() => {
     const userStr = localStorage.getItem('user');
@@ -31,9 +33,14 @@ function MainPage() {
       setLiveSong(null);
     });
 
+    socket.on('updateUsers', (users) => { // Live count of people in the room
+      setRoomCount(Array.isArray(users) ? users.length : 0);
+    });
+
     return () => {
       socket.off('liveSong');
       socket.off('quitRehearsal');
+      socket.off('updateUsers');
     };
   }, [navigate]);
 
@@ -48,9 +55,11 @@ function MainPage() {
 
   return (
     <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh', background: '#f8f9fa' }}>
-      <div className="card shadow" style={{ width: 400, padding: 24 }}>
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <span className="text-primary fw-bold fs-4"> Welcome, {user.username}! </span>
+      <div className="card shadow" style={{ width: 440, maxWidth: '92vw', padding: 24 }}>
+        <Wordmark tagline={false} size={28} />
+
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <span className="fw-bold fs-5" style={{ color: BRAND_COLOR }}>Welcome, {user.username}!</span>
           <button
             className="btn btn-outline-danger btn-sm"
             onClick={() => {
@@ -60,14 +69,23 @@ function MainPage() {
           > Logout
           </button>
         </div>
-        {!user.isAdmin && (
-          <h2 className="text-center fs-5 mb-0">
-            {liveSong ? 'Loading song...' : 'Waiting for next song...'}
-          </h2>
-        )}
-        {user.isAdmin && (
+
+        {/* Live room status — makes it feel like a real, shared session. */}
+        <div className="d-flex justify-content-center gap-2 mb-3">
+          <span className="badge rounded-pill text-bg-success">🟢 In the room: {roomCount}</span>
+          <span className="badge rounded-pill text-bg-secondary">
+            {user.isAdmin ? '🎙️ You are the session leader' : `🎸 ${user.instrument || 'player'}`}
+          </span>
+        </div>
+
+        {user.isAdmin ? (
           <>
-            <h2 className="text-center fs-5 mb-4">Search any song...</h2>
+            <div className="alert alert-light border small mb-3">
+              <strong>How it works:</strong> search for a song below and pick it — it opens
+              <em> live for everyone</em> in the room at the same time. Hit <strong>Quit</strong>
+              on the live screen to end the song and bring everyone back here.
+            </div>
+            <h2 className="text-center fs-6 text-muted mb-2">Search any song…</h2>
             <form onSubmit={handleSearch}>
               <div className="mb-3">
                 <input
@@ -83,6 +101,17 @@ function MainPage() {
               </button>
             </form>
           </>
+        ) : (
+          <div className="text-center">
+            <div className="spinner-border text-secondary my-2" role="status" aria-hidden="true"></div>
+            <h2 className="fs-5 mb-2">
+              {liveSong ? 'Loading song…' : 'Waiting for the leader to start a song'}
+            </h2>
+            <p className="text-muted small mb-0">
+              Keep this page open — the song will open here automatically the moment the
+              session leader picks one.
+            </p>
+          </div>
         )}
       </div>
     </div>

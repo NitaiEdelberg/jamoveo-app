@@ -152,20 +152,23 @@ function LivePage() {
           </div>
         )}
       </div>
-      <button
-        onClick={() => setIsScrolling(sc => !sc)}
-        className={`btn ${isScrolling ? 'btn-info' : 'btn-dark'} position-fixed`}
-        style={{
-          bottom: 32,
-          left: 32,
-          borderRadius: 32,
-          fontSize: 20,
-          boxShadow: '0 2px 8px #000',
-          zIndex: 999,
-        }}
-      >
-        {isScrolling ? 'Stop Scroll' : 'Start Scroll'}
-      </button>
+      {/* Auto-scroll is a session-leader control only, so the band stays in sync. */}
+      {isAdmin() && (
+        <button
+          onClick={() => setIsScrolling(sc => !sc)}
+          className={`btn ${isScrolling ? 'btn-info' : 'btn-dark'} position-fixed`}
+          style={{
+            bottom: 32,
+            left: 32,
+            borderRadius: 32,
+            fontSize: 20,
+            boxShadow: '0 2px 8px #000',
+            zIndex: 999,
+          }}
+        >
+          {isScrolling ? 'Stop Scroll' : 'Start Scroll'}
+        </button>
+      )}
     </div>
   );
 }

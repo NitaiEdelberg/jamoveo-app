@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Wordmark } from '../brand';
 
 function LoginPage() {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -28,6 +29,7 @@ function LoginPage() {
   return (
     <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh', background: '#f8f9fa' }}>
       <div className="card shadow" style={{ width: 400, padding: 24 }}>
+        <Wordmark />
         <form onSubmit={handleSubmit}>
           <h2 className="text-center mb-4">Login</h2>
           <div className="mb-3">
