@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { getUserByUsername, createUser } = require('../db/users');
+const { JWT_SECRET } = require('../config');
 const router = express.Router();
 
 router.post('/signup', async (req, res) => {
@@ -30,7 +31,7 @@ router.post('/login', async (req, res) => {
     }
     const token = jwt.sign( // Create JWT token for the user
       { id: user.id, username: user.username, isAdmin: user.is_admin, instrument: user.instrument },
-      process.env.JWT_SECRET || 'jamoveo-secret', // set JWT_SECRET in the environment for production
+      JWT_SECRET, // shared with the socket layer via ../config
       { expiresIn: '24h' }
     );
     console.log(`${username} logged in successfully`);

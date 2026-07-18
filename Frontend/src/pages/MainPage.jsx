@@ -37,10 +37,18 @@ function MainPage() {
       setRoomCount(Array.isArray(users) ? users.length : 0);
     });
 
+    socket.on('connect_error', (err) => { // rejected by the server's auth gate (e.g. expired token)
+      if (String(err?.message || '').includes('unauthorized')) {
+        localStorage.clear();
+        navigate('/login');
+      }
+    });
+
     return () => {
       socket.off('liveSong');
       socket.off('quitRehearsal');
       socket.off('updateUsers');
+      socket.off('connect_error');
     };
   }, [navigate]);
 
