@@ -21,6 +21,7 @@ function LivePage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [song, setSong] = useState(null);
+  const [meta, setMeta] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const [isScrolling, setIsScrolling] = useState(false);
@@ -36,7 +37,7 @@ function LivePage() {
     }
     setLoading(true);
     axios.get(`${import.meta.env.VITE_API_URL}/api/song/${songFileName}`) // Fetch song data and then set it
-      .then(res => setSong(res.data.songData))
+      .then(res => { setSong(res.data.songData); setMeta(res.data.meta || null); })
       .finally(() => setLoading(false));
   }, [songFileName, navigate]);
 
@@ -93,9 +94,12 @@ function LivePage() {
       }}
     >
       <div className="card shadow" style={{ width: '100%', maxWidth: 900, padding: 32 }}>
-        <h1 className="text-center mb-4 fw-bold" style={{ fontSize: 36 }}>
-          {songFileName.replace('.json', '')}
+        <h1 className="text-center mb-1 fw-bold" style={{ fontSize: 36 }}>
+          {meta?.title || songFileName.replace('.json', '')}
         </h1>
+        {meta?.artist && (
+          <div className="text-center text-muted mb-4" style={{ fontSize: 18 }}>{meta.artist}</div>
+        )}
         <div
           ref={scrollRef}
           style={{
@@ -112,7 +116,10 @@ function LivePage() {
               key={idx}
               style={{
                 marginBottom: 24,
-                direction: line[0]?.lyrics.match(/[\u0590-\u05FF]/) ? 'rtl' : 'ltr',
+                direction:
+                  meta?.language === 'he' || line.some(w => /[\u0590-\u05FF]/.test(w.lyrics || ''))
+                    ? 'rtl'
+                    : 'ltr',
                 display: 'flex',
                 flexWrap: 'wrap',
                 justifyContent: 'center',

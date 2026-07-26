@@ -40,9 +40,32 @@ to the live view instantly. No refreshing — updates are pushed over WebSockets
 
 1. Users sign up as a **player** (with an instrument) or a **session leader** (admin).
 2. Everyone who logs in joins one shared room and sees a live count of who's in it.
-3. The leader searches for a song and picks it — it opens **live for everyone at once**.
-4. Players see **chords above the lyrics**; singers see **lyrics only**.
+3. The leader **searches by song or artist**, or hits **Browse all songs** to see the
+   whole catalog, and picks one — it opens **live for everyone at once**.
+4. Players see **chords above the lyrics**; singers see **lyrics only**. Hebrew songs
+   render right-to-left automatically.
 5. The leader controls **auto-scroll** and can **Quit** the song to bring everyone back.
+
+### Song library
+
+Songs live in `Backend/songs/*.json`. Each file carries its own metadata so search
+and browse work by **title and artist**:
+
+```json
+{
+  "title": "Let It Be",
+  "artist": "The Beatles",
+  "language": "en",
+  "lines": [
+    [ { "lyrics": "When", "chords": "C" }, { "lyrics": "I" }, { "lyrics": "find" } ]
+  ]
+}
+```
+
+`language` (`en`/`he`) drives the right-to-left layout, and each word can carry the
+`chords` that sit above it. Legacy bare-array song files are still supported (the
+title is derived from the file name). Drop in a new `.json` to add a song — no code
+change needed.
 
 ## Security
 

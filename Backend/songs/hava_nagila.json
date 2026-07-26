@@ -1,0 +1,106 @@
+{
+  "title": "הבה נגילה",
+  "artist": "עממי",
+  "language": "he",
+  "lines": [
+    [
+      {
+        "lyrics": "הבה",
+        "chords": "Am"
+      },
+      {
+        "lyrics": "נגילה"
+      },
+      {
+        "lyrics": "הבה",
+        "chords": "Dm"
+      },
+      {
+        "lyrics": "נגילה",
+        "chords": "Am"
+      }
+    ],
+    [
+      {
+        "lyrics": "הבה",
+        "chords": "E7"
+      },
+      {
+        "lyrics": "נגילה"
+      },
+      {
+        "lyrics": "ונ"
+      },
+      {
+        "lyrics": "שמחה",
+        "chords": "Am"
+      }
+    ],
+    [
+      {
+        "lyrics": "הבה",
+        "chords": "Am"
+      },
+      {
+        "lyrics": "נרננה"
+      },
+      {
+        "lyrics": "הבה",
+        "chords": "Dm"
+      },
+      {
+        "lyrics": "נ"
+      },
+      {
+        "lyrics": "רננה",
+        "chords": "Am"
+      }
+    ],
+    [
+      {
+        "lyrics": "הבה",
+        "chords": "E7"
+      },
+      {
+        "lyrics": "נרננה"
+      },
+      {
+        "lyrics": "ונ"
+      },
+      {
+        "lyrics": "שמחה",
+        "chords": "Am"
+      }
+    ],
+    [
+      {
+        "lyrics": "עורו",
+        "chords": "E7"
+      },
+      {
+        "lyrics": "עורו"
+      },
+      {
+        "lyrics": "אחים"
+      }
+    ],
+    [
+      {
+        "lyrics": "עורו"
+      },
+      {
+        "lyrics": "אחים"
+      },
+      {
+        "lyrics": "ב"
+      },
+      {
+        "lyrics": "לב",
+        "chords": "Am"
+      },
+      {
+        "lyrics": "שמח"
+      }
+    ]
+  ]
+}

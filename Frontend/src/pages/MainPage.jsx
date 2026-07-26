@@ -108,6 +108,13 @@ function MainPage() {
                 Search
               </button>
             </form>
+            <button
+              type="button"
+              className="btn btn-outline-secondary w-100 mt-2"
+              onClick={() => navigate('/results?browse=1')}
+            >
+              Browse all songs
+            </button>
           </>
         ) : (
           <div className="text-center">
