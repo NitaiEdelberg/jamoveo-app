@@ -119,6 +119,19 @@ npm run dev      # opens http://localhost:5173
 
 Point the frontend's `VITE_API_URL` at your backend (e.g. `http://localhost:3001`).
 
+### Tests
+
+The backend has a test suite (Node's built-in runner) covering the real‑time room
+logic — socket auth, creating/joining a room by code, the live‑song broadcast,
+leader‑only controls, and scroll sync — plus the song API (search by title/artist,
+browse‑all, fetch, path‑traversal guard):
+
+```bash
+cd Backend
+npm install
+npm test
+```
+
 ### Sign-up routes
 
 * Player: `/signup`
