@@ -55,9 +55,16 @@ function MainPage() {
     };
     const onUpdateUsers = (users) => setRoomCount(Array.isArray(users) ? users.length : 0);
     const onRoomNotFound = (code) => {
-      setError(`No live session found for code "${code}". Ask the leader for the current code.`);
+      // A leader whose room expired (server restart/sleep) should just land back
+      // on "Start a session", not see a scary error meant for players.
+      let admin = false;
+      try { admin = JSON.parse(localStorage.getItem('user') || '{}').isAdmin; } catch { /* ignore */ }
+      if (!admin) {
+        setError(`No live session found for code "${code}". Ask the leader for the current code.`);
+      }
       persistRoom('');
       setJoined(false);
+      setIsLeader(false);
     };
     const onConnectError = (err) => {
       if (String(err?.message || '').includes('unauthorized')) {
