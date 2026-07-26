@@ -39,12 +39,16 @@ to the live view instantly. No refreshing — updates are pushed over WebSockets
 ## How it works
 
 1. Users sign up as a **player** (with an instrument) or a **session leader** (admin).
-2. Everyone who logs in joins one shared room and sees a live count of who's in it.
-3. The leader **searches by song or artist**, or hits **Browse all songs** to see the
-   whole catalog, and picks one — it opens **live for everyone at once**.
+2. A leader hits **Start a session** and gets a short **room code** (e.g. `AB7K`) plus a
+   shareable **invite link** (`/join/AB7K`). Players **enter the code** (or click the link)
+   to join that specific room, so multiple bands can run separate sessions at once.
+3. The leader browses the **song library right on the main page** (searchable by song or
+   artist) and picks one — it opens **live for everyone in that room at once**.
 4. Players see **chords above the lyrics**; singers see **lyrics only**. Hebrew songs
    render right-to-left automatically.
-5. The leader controls **auto-scroll** and can **Quit** the song to bring everyone back.
+5. **Auto-scroll** is available to everyone with a **speed slider** for their own screen;
+   the leader can toggle **"scroll everyone with me"** to drive the whole band in sync, and
+   can **Quit** to bring everyone back.
 
 ### Song library
 
@@ -66,6 +70,23 @@ and browse work by **title and artist**:
 `chords` that sit above it. Legacy bare-array song files are still supported (the
 title is derived from the file name). Drop in a new `.json` to add a song — no code
 change needed.
+
+**Adding songs quickly** — use the importer instead of hand-writing JSON. Put chords in
+`[square brackets]` before the word they sit on (ChordPro style):
+
+```
+Title: Let It Be
+Artist: The Beatles
+
+[C]When I find myself in [G]times of trouble
+[Am]Mother Mary [F]comes to me
+```
+
+```bash
+node Backend/scripts/import_song.js song.txt   # writes Backend/songs/let_it_be.json
+```
+
+Language is auto-detected (Hebrew → right-to-left).
 
 ## Security
 

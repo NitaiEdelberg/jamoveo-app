@@ -1,0 +1,150 @@
+{
+  "title": "Imagine",
+  "artist": "John Lennon",
+  "language": "en",
+  "lines": [
+    [
+      {
+        "lyrics": "Imagine",
+        "chords": "C"
+      },
+      {
+        "lyrics": "theres"
+      },
+      {
+        "lyrics": "no"
+      },
+      {
+        "lyrics": "heaven",
+        "chords": "F"
+      }
+    ],
+    [
+      {
+        "lyrics": "Its",
+        "chords": "C"
+      },
+      {
+        "lyrics": "easy"
+      },
+      {
+        "lyrics": "if"
+      },
+      {
+        "lyrics": "you"
+      },
+      {
+        "lyrics": "try",
+        "chords": "F"
+      }
+    ],
+    [
+      {
+        "lyrics": "No",
+        "chords": "C"
+      },
+      {
+        "lyrics": "hell"
+      },
+      {
+        "lyrics": "be[F]low"
+      },
+      {
+        "lyrics": "us"
+      }
+    ],
+    [
+      {
+        "lyrics": "Above",
+        "chords": "C"
+      },
+      {
+        "lyrics": "us"
+      },
+      {
+        "lyrics": "only"
+      },
+      {
+        "lyrics": "sky",
+        "chords": "F"
+      }
+    ],
+    [
+      {
+        "lyrics": "Imagine",
+        "chords": "F"
+      },
+      {
+        "lyrics": "all",
+        "chords": "Am"
+      },
+      {
+        "lyrics": "the"
+      },
+      {
+        "lyrics": "people",
+        "chords": "Dm"
+      },
+      {
+        "lyrics": "",
+        "chords": "F"
+      }
+    ],
+    [
+      {
+        "lyrics": "Living",
+        "chords": "G"
+      },
+      {
+        "lyrics": "for"
+      },
+      {
+        "lyrics": "to[C]day"
+      }
+    ],
+    [
+      {
+        "lyrics": "You",
+        "chords": "F"
+      },
+      {
+        "lyrics": "may"
+      },
+      {
+        "lyrics": "say"
+      },
+      {
+        "lyrics": "Im"
+      },
+      {
+        "lyrics": "a"
+      },
+      {
+        "lyrics": "dreamer",
+        "chords": "G"
+      }
+    ],
+    [
+      {
+        "lyrics": "But",
+        "chords": "C"
+      },
+      {
+        "lyrics": "Im"
+      },
+      {
+        "lyrics": "not"
+      },
+      {
+        "lyrics": "the"
+      },
+      {
+        "lyrics": "only"
+      },
+      {
+        "lyrics": "one",
+        "chords": "E7"
+      }
+    ]
+  ]
+}

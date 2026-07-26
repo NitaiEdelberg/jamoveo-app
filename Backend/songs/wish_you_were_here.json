@@ -1,0 +1,169 @@
+{
+  "title": "Wish You Were Here",
+  "artist": "Pink Floyd",
+  "language": "en",
+  "lines": [
+    [
+      {
+        "lyrics": "So,",
+        "chords": "C"
+      },
+      {
+        "lyrics": "so"
+      },
+      {
+        "lyrics": "you"
+      },
+      {
+        "lyrics": "think"
+      },
+      {
+        "lyrics": "you"
+      },
+      {
+        "lyrics": "can"
+      },
+      {
+        "lyrics": "tell",
+        "chords": "D"
+      }
+    ],
+    [
+      {
+        "lyrics": "Heaven",
+        "chords": "Am"
+      },
+      {
+        "lyrics": "from"
+      },
+      {
+        "lyrics": "hell,"
+      },
+      {
+        "lyrics": "blue",
+        "chords": "G"
+      },
+      {
+        "lyrics": "skies"
+      },
+      {
+        "lyrics": "from"
+      },
+      {
+        "lyrics": "pain"
+      }
+    ],
+    [
+      {
+        "lyrics": "Can",
+        "chords": "D"
+      },
+      {
+        "lyrics": "you"
+      },
+      {
+        "lyrics": "tell"
+      },
+      {
+        "lyrics": "a"
+      },
+      {
+        "lyrics": "green"
+      },
+      {
+        "lyrics": "field",
+        "chords": "C"
+      }
+    ],
+    [
+      {
+        "lyrics": "From"
+      },
+      {
+        "lyrics": "a"
+      },
+      {
+        "lyrics": "cold"
+      },
+      {
+        "lyrics": "steel"
+      },
+      {
+        "lyrics": "rail?",
+        "chords": "G"
+      }
+    ],
+    [
+      {
+        "lyrics": "How",
+        "chords": "Am"
+      },
+      {
+        "lyrics": "I"
+      },
+      {
+        "lyrics": "wish,"
+      },
+      {
+        "lyrics": "how"
+      },
+      {
+        "lyrics": "I"
+      },
+      {
+        "lyrics": "wish",
+        "chords": "G"
+      },
+      {
+        "lyrics": "you"
+      },
+      {
+        "lyrics": "were"
+      },
+      {
+        "lyrics": "here"
+      }
+    ],
+    [
+      {
+        "lyrics": "Weve",
+        "chords": "C"
+      },
+      {
+        "lyrics": "been"
+      },
+      {
+        "lyrics": "lost"
+      },
+      {
+        "lyrics": "in"
+      },
+      {
+        "lyrics": "the"
+      },
+      {
+        "lyrics": "same",
+        "chords": "D"
+      },
+      {
+        "lyrics": "old"
+      },
+      {
+        "lyrics": "fear,"
+      },
+      {
+        "lyrics": "wish"
+      },
+      {
+        "lyrics": "you"
+      },
+      {
+        "lyrics": "were"
+      },
+      {
+        "lyrics": "here",
+        "chords": "G"
+      }
+    ]
+  ]
+}
