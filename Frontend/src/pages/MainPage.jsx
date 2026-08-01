@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import socket from '../socket';
+import socket, { emitWithAck } from '../socket';
 import { Wordmark, BRAND_COLOR } from '../brand';
 
 function MainPage() {
@@ -13,6 +13,7 @@ function MainPage() {
   const [error, setError] = useState('');
   const [roomCount, setRoomCount] = useState(0);
   const [copied, setCopied] = useState(false);
+  const [busy, setBusy] = useState(false);
 
   const [songs, setSongs] = useState([]);
   const [query, setQuery] = useState('');
@@ -93,29 +94,37 @@ function MainPage() {
     };
   }, [navigate]);
 
-  const startSession = () => {
-    socket.emit('createRoom', (res) => {
-      if (res?.roomId) {
-        persistRoom(res.roomId);
-        setIsLeader(true);
-        setJoined(true);
-        setError('');
-      } else {
-        setError(res?.error || 'Could not start a session.');
-      }
-    });
+  const startSession = async () => {
+    setError('');
+    setBusy(true);
+    // emitWithAck rather than a bare emit: on a disconnected socket the ack never
+    // arrives and the button appears to do nothing at all.
+    const res = await emitWithAck('createRoom');
+    setBusy(false);
+    if (res?.roomId) {
+      persistRoom(res.roomId);
+      setIsLeader(true);
+      setJoined(true);
+    } else if (res?.error === 'no-connection') {
+      setError("Can't reach the server — check your connection and try again.");
+    } else {
+      setError(res?.error || 'Could not start a session.');
+    }
   };
 
-  const joinByCode = (e) => {
+  const joinByCode = async (e) => {
     e.preventDefault();
     const code = roomCodeInput.toUpperCase().trim();
     if (!code) return;
     setError('');
-    socket.emit('joinRehearsal', { roomId: code }, (res) => {
-      if (res?.error === 'roomNotFound') {
-        setError(`No live session found for code "${code}".`);
-      }
-    });
+    setBusy(true);
+    const res = await emitWithAck('joinRehearsal', { roomId: code });
+    setBusy(false);
+    if (res?.error === 'no-connection') {
+      setError("Can't reach the server — check your connection and try again.");
+    } else if (res?.error === 'roomNotFound') {
+      setError(`No live session found for code "${code}".`);
+    }
   };
 
   const pickSong = (song) => {
@@ -219,11 +228,11 @@ function MainPage() {
               Start a session to get a room code your band can join, then pick songs that open
               live for everyone at once.
             </p>
-            <button className="btn btn-primary btn-lg w-100 mb-3" onClick={startSession}>
-              🎙️ Start a session
+            <button className="btn btn-primary btn-lg w-100 mb-3" onClick={startSession} disabled={busy}>
+              {busy ? 'Starting…' : '🎙️ Start a session'}
             </button>
             <div className="text-muted small">…or join someone else's session below.</div>
-            <JoinForm value={roomCodeInput} setValue={setRoomCodeInput} onSubmit={joinByCode} />
+            <JoinForm value={roomCodeInput} setValue={setRoomCodeInput} onSubmit={joinByCode} busy={busy} />
           </div>
         )}
 
@@ -244,7 +253,7 @@ function MainPage() {
           ) : (
             <div className="text-center">
               <h2 className="fs-6 text-muted mb-2">Enter the room code from your session leader</h2>
-              <JoinForm value={roomCodeInput} setValue={setRoomCodeInput} onSubmit={joinByCode} />
+              <JoinForm value={roomCodeInput} setValue={setRoomCodeInput} onSubmit={joinByCode} busy={busy} />
             </div>
           )
         )}
@@ -253,7 +262,7 @@ function MainPage() {
   );
 }
 
-function JoinForm({ value, setValue, onSubmit }) {
+function JoinForm({ value, setValue, onSubmit, busy }) {
   return (
     <form onSubmit={onSubmit} className="mt-2">
       <div className="input-group">
@@ -266,7 +275,7 @@ function JoinForm({ value, setValue, onSubmit }) {
           value={value}
           onChange={(e) => setValue(e.target.value)}
         />
-        <button type="submit" className="btn btn-primary">Join</button>
+        <button type="submit" className="btn btn-primary" disabled={busy}>{busy ? '…' : 'Join'}</button>
       </div>
     </form>
   );

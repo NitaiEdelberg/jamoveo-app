@@ -128,6 +128,47 @@ test('a non-leader\'s scrollControl is ignored (not rebroadcast)', async () => {
   player.close();
 });
 
+// The client sends these through socket.timeout(...).emit(...) so a dead socket
+// can't leave a button hanging forever. That changes the ack signature to
+// (err, response), so the server's replies have to survive the wrapper intact —
+// if they didn't, "Start a session" would break for everyone.
+const emitWithAck = (sock, event, payload, ms = 4000) => new Promise((resolve) => {
+  const done = (err, res) => resolve(err ? { error: 'no-connection' } : (res || {}));
+  if (payload === undefined) sock.timeout(ms).emit(event, done);
+  else sock.timeout(ms).emit(event, payload, done);
+});
+
+test('acks survive the client-side timeout wrapper', async () => {
+  const leader = open({ id: 60, username: 'lead6', isAdmin: true });
+  const player = open({ id: 61, username: 'play6', isAdmin: false });
+  await Promise.all([waitConnect(leader), waitConnect(player)]);
+
+  const created = await emitWithAck(leader, 'createRoom');
+  assert.match(created.roomId, /^[A-Z0-9]{4}$/, 'createRoom must still return the room code');
+
+  const joined = await emitWithAck(player, 'joinRehearsal', { roomId: created.roomId });
+  assert.equal(joined.ok, true);
+  assert.equal(joined.isLeader, false);
+
+  const missing = await emitWithAck(player, 'joinRehearsal', { roomId: 'ZZZZ' });
+  assert.equal(missing.error, 'roomNotFound');
+
+  leader.close();
+  player.close();
+});
+
+test('a socket rejected by auth reports the failure rather than hanging', async () => {
+  // Socket.IO does not retry after a middleware rejection, so an emit on this
+  // socket would buffer forever. The timeout wrapper is what turns that into a
+  // visible error instead of a dead button.
+  const sock = Client(url, { transports: ['websocket'], forceNew: true, auth: (cb) => cb({ token: 'nope' }) });
+  await assert.rejects(waitConnect(sock));
+
+  const res = await emitWithAck(sock, 'createRoom', undefined, 600);
+  assert.equal(res.error, 'no-connection');
+  sock.close();
+});
+
 test('presence count rises as members join the room', async () => {
   const leader = open({ id: 50, username: 'lead5', isAdmin: true });
   await waitConnect(leader);

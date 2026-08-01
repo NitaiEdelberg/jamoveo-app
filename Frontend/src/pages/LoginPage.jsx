@@ -2,10 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Wordmark } from '../brand';
+import { reconnectWithFreshToken } from '../socket';
 
 function LoginPage() {
   const [form, setForm] = useState({ username: '', password: '' });
-  const [error, setError] = useState('');
+  // socket.js sends people here with ?expired=1 when their token is rejected, so
+  // a silent logout reads as an explanation rather than a mystery.
+  const [error, setError] = useState(
+    new URLSearchParams(window.location.search).has('expired')
+      ? 'Your session expired — please log in again.'
+      : ''
+  );
   const navigate = useNavigate();
 
   const handleChange = e => {
@@ -20,6 +27,10 @@ function LoginPage() {
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, form); // Send login request to the server using axios
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user)); // Store user data in localStorage
+      // The socket may be sitting inactive after an earlier auth rejection, and
+      // Socket.IO won't retry that on its own — reconnect with the new token or
+      // every action on the next page would silently do nothing.
+      reconnectWithFreshToken();
       navigate('/main');
     } catch (err) {
       setError(err.response?.data?.error || "Login failed");
