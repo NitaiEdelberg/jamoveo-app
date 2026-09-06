@@ -20,6 +20,12 @@ const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 
+// A cheap liveness probe that touches nothing. It exists for two reasons: the
+// keep-alive cron needs a URL that is free to hit, and the frontend pings it on
+// load to start Render's ~50s cold boot while the user is still typing. `GET /`
+// is a 404 here, so there was previously no endpoint that could serve either.
+app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/rehearsal', rehearsalRoutes);

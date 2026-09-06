@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Wordmark } from '../brand';
+import { useSlowRequest } from '../wake';
 
 function SignupPage() {
   const [form, setForm] = useState({ username: '', password: '', instrument: '', isAdmin: false }); //use state to manage form data
   const [error, setError] = useState('');
+  const { busy, slow, run } = useSlowRequest();
   const navigate = useNavigate();
 
   const handleChange = e => { // handle input changes
@@ -20,7 +22,8 @@ function SignupPage() {
     e.preventDefault();
     setError('');
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/signup`, form);
+      await run(() =>
+        axios.post(`${import.meta.env.VITE_API_URL}/api/auth/signup`, form));
       navigate('/login');
     } catch (err) {
       setError(err.response?.data?.error || "Signup failed");
@@ -71,7 +74,15 @@ function SignupPage() {
               <option value="saxophone">Saxophone</option>
             </select>
           </div>
-          <button type="submit" className="btn btn-success w-100">Register</button>
+          <button type="submit" className="btn btn-success w-100" disabled={busy}>
+            {busy ? 'Registering…' : 'Register'}
+          </button>
+          {slow && (
+            <div className="alert alert-info mt-2 py-2" style={{ fontSize: 14 }}>
+              Waking the server up. It sleeps when nobody is playing, so the
+              first request of the day takes up to a minute.
+            </div>
+          )}
           {error && <div className="alert alert-danger mt-3">{error}</div>}
         </form>
       </div>

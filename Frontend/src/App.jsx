@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { wakeBackend } from './wake';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
@@ -8,6 +10,11 @@ import SignupAdminPage from './pages/SignupAdminPage';
 import JoinPage from './pages/JoinPage';
 
 function App() {
+  // Start the backend booting as early as we possibly can. On a cold Render
+  // instance this buys back most of the ~50s spin-up, because it runs while the
+  // user is still reading the login form rather than after they submit it.
+  useEffect(() => { wakeBackend(); }, []);
+
   return (
     <BrowserRouter>
       <Routes>
