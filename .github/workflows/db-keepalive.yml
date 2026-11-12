@@ -1,0 +1,35 @@
+# Keeps the free Supabase database from pausing. Supabase pauses a free project
+# after ~7 days with no queries, which silently broke sign-up and login while
+# the rest of the app (songs, health check) still looked fine.
+#
+# This calls /api/keepalive, which runs a trivial SELECT 1, every 3 days.
+# Render budget: each run wakes the backend for ~15 minutes, so ~2.5 hours a
+# month against the account-wide 750 free hours. Negligible.
+#
+# The job FAILS when the database is unreachable, so GitHub emails you instead
+# of the outage going unnoticed. GitHub disables schedules after 60 days with no
+# repo activity; re-enable it from the Actions tab if that happens.
+name: db-keepalive
+
+on:
+  schedule:
+    - cron: "0 6 */3 * *" # every 3 days at 06:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query the database through the backend
+        env:
+          BASE: ${{ vars.BACKEND_URL || 'https://jamoveo-backend-spy0.onrender.com' }}
+        run: |
+          # The first request may only wake Render (~50s cold start); retry.
+          for i in 1 2 3; do
+            BODY=$(curl -s --max-time 120 -w ' http=%{http_code}' "$BASE/api/keepalive" || true)
+            echo "attempt $i: $BODY"
+            case "$BODY" in *'"db":"ok"'*) exit 0 ;; esac
+            sleep 30
+          done
+          echo "::error::Database unreachable. If Supabase paused the project, restore it from the Supabase dashboard."
+          exit 1
