@@ -102,7 +102,7 @@ function LivePage() {
   return (
     <div
       className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: '100vh', background: '#f8f9fa', position: 'relative' }}
+      style={{ minHeight: '100vh', position: 'relative' }}
     >
       <div className="card shadow" style={{ width: '100%', maxWidth: 900, padding: 32 }}>
         <h1 className="text-center mb-1 fw-bold" style={{ fontSize: 36 }}>
@@ -140,7 +140,7 @@ function LivePage() {
               {line.map((word, j) => (
                 <span key={j} className="mx-2" style={{ display: 'inline-block', minWidth: 42, textAlign: 'center' }}>
                   {showChords && (
-                    <div className="text-info fw-bold" style={{ height: 20, fontSize: 18 }}>
+                    <div className="chord fw-bold" style={{ height: 20, fontSize: 18 }}>
                       {word.chords ? word.chords : ' '}
                     </div>
                   )}
@@ -155,7 +155,7 @@ function LivePage() {
         <div className="d-flex flex-wrap align-items-center justify-content-center gap-3 border-top pt-3">
           <button
             onClick={() => setIsScrolling((s) => !s)}
-            className={`btn ${isScrolling ? 'btn-info' : 'btn-dark'} px-4`}
+            className={`btn ${isScrolling ? 'btn-info' : 'btn-outline-light'} px-4`}
           >
             {isScrolling ? '⏸ Stop scroll' : '▶ Auto-scroll'}
           </button>

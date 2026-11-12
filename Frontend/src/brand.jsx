@@ -5,7 +5,7 @@ import React from 'react';
 export const APP_NAME = 'Tutti';
 export const APP_EMOJI = '🎵';
 export const APP_TAGLINE = 'Everyone on the same song.';
-export const BRAND_COLOR = '#0d9488'; // teal accent
+export const BRAND_COLOR = '#2dd4bf'; // teal accent, tuned for the dark stage theme
 
 // Reusable wordmark/logo. Drop it at the top of a page/card.
 export function Wordmark({ tagline = true, size = 34 }) {

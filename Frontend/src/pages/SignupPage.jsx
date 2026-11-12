@@ -31,7 +31,7 @@ function SignupPage() {
   };
 
   return (
-    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh', background: '#f8f9fa' }}>
+    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
       <div className="card shadow" style={{ width: 400, padding: 24 }}>
         <Wordmark />
         <form onSubmit={handleSubmit}>

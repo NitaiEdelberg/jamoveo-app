@@ -11,7 +11,7 @@ function LoginPage() {
   // a silent logout reads as an explanation rather than a mystery.
   const [error, setError] = useState(
     new URLSearchParams(window.location.search).has('expired')
-      ? 'Your session expired — please log in again.'
+      ? 'Your session expired. Please log in again.'
       : ''
   );
   const { busy, slow, run } = useSlowRequest();
@@ -41,7 +41,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh', background: '#f8f9fa' }}>
+    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
       <div className="card shadow" style={{ width: 400, padding: 24 }}>
         <Wordmark />
         <form onSubmit={handleSubmit}>

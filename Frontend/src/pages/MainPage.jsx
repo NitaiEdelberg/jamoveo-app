@@ -106,7 +106,7 @@ function MainPage() {
       setIsLeader(true);
       setJoined(true);
     } else if (res?.error === 'no-connection') {
-      setError("Can't reach the server — check your connection and try again.");
+      setError("Can't reach the server. Check your connection and try again.");
     } else {
       setError(res?.error || 'Could not start a session.');
     }
@@ -121,7 +121,7 @@ function MainPage() {
     const res = await emitWithAck('joinRehearsal', { roomId: code });
     setBusy(false);
     if (res?.error === 'no-connection') {
-      setError("Can't reach the server — check your connection and try again.");
+      setError("Can't reach the server. Check your connection and try again.");
     } else if (res?.error === 'roomNotFound') {
       setError(`No live session found for code "${code}".`);
     }
@@ -174,9 +174,9 @@ function MainPage() {
           >
             <span>
               <b>{s.title || s.songName}</b>
-              {s.artist && <span className="text-muted small"> — {s.artist}</span>}
+              {s.artist && <span className="text-muted small"> · {s.artist}</span>}
             </span>
-            <span className="badge rounded-pill text-bg-light">
+            <span className="badge rounded-pill text-bg-dark border">
               {s.language === 'he' ? 'עברית' : 'EN'}
             </span>
           </button>
@@ -187,7 +187,7 @@ function MainPage() {
   );
 
   return (
-    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh', background: '#f8f9fa', padding: 16 }}>
+    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh', padding: 16 }}>
       <div className="card shadow" style={{ width: 480, maxWidth: '94vw', padding: 24 }}>
         <Wordmark tagline={false} size={28} />
 
@@ -208,15 +208,15 @@ function MainPage() {
         {/* ── LEADER, in a room: share code + inline library ── */}
         {isLeader && roomId && (
           <>
-            <div className="text-center border rounded-3 py-3 mb-3" style={{ background: '#fffdf5' }}>
-              <div className="text-muted small">Room code — share it with your band</div>
+            <div className="room-code text-center rounded-3 py-3 mb-3">
+              <div className="text-muted small">Room code: share it with your band</div>
               <div className="fw-bold" style={{ fontSize: 40, letterSpacing: 6, color: BRAND_COLOR }}>{roomId}</div>
               <div className="input-group input-group-sm mt-2 px-3">
                 <input className="form-control" readOnly value={shareLink} onFocus={(e) => e.target.select()} />
                 <button className="btn btn-outline-primary" onClick={copyShare}>{copied ? 'Copied!' : 'Copy link'}</button>
               </div>
             </div>
-            <h2 className="fs-6 text-muted mb-2">Pick a song — it opens live for everyone</h2>
+            <h2 className="fs-6 text-muted mb-2">Pick a song and it opens live for everyone</h2>
             <SongList />
           </>
         )}
@@ -240,11 +240,11 @@ function MainPage() {
         {!user.isAdmin && (
           joined && roomId ? (
             <div className="text-center">
-              <div className="badge text-bg-light border mb-3" style={{ fontSize: 16, letterSpacing: 3 }}>Room {roomId}</div>
+              <div className="badge text-bg-dark border border mb-3" style={{ fontSize: 16, letterSpacing: 3 }}>Room {roomId}</div>
               <div className="spinner-border text-secondary my-2" role="status" aria-hidden="true"></div>
               <h2 className="fs-5 mb-2">Waiting for the leader to start a song</h2>
               <p className="text-muted small mb-3">
-                Keep this page open — the song opens here automatically the moment the leader picks one.
+                Keep this page open. The song opens here automatically the moment the leader picks one.
               </p>
               <button className="btn btn-outline-secondary btn-sm" onClick={() => { persistRoom(''); setJoined(false); }}>
                 Leave room

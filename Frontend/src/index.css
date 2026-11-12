@@ -1,56 +1,99 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/* Tutti "stage" theme.
+   Bootstrap 5.3 dark mode (data-bs-theme="dark" on <html>) does the heavy
+   lifting; this file only retunes its variables to the teal brand and adds a
+   few app-specific pieces. It is loaded AFTER bootstrap.min.css (see main.jsx)
+   so these overrides win. Dark suits the use case: a rehearsal room, often
+   dim, where lyrics and chords need high contrast at a distance. */
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+[data-bs-theme="dark"] {
+  --tutti-teal: #2dd4bf;
+  --tutti-teal-strong: #14b8a6;
+  --tutti-ink: #042f2b;
+  --tutti-amber: #fbbf24;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --bs-body-font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bs-body-bg: #0b1114;
+  --bs-body-color: #e6eef0;
+  --bs-secondary-color: #94a7ad;
+  --bs-tertiary-bg: #121b1f;
+  --bs-border-color: #22333a;
+  --bs-primary: #2dd4bf;
+  --bs-primary-rgb: 45, 212, 191;
+  --bs-link-color: #5eead4;
+  --bs-link-color-rgb: 94, 234, 212;
+  --bs-link-hover-color: #99f6e4;
+  --bs-link-hover-color-rgb: 153, 246, 228;
+  --bs-focus-ring-color: rgba(45, 212, 191, 0.3);
 }
 
 body {
-  margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background: #f8f9fa;
+  background:
+    radial-gradient(900px 500px at 10% -10%, rgba(45, 212, 191, 0.14), transparent 60%),
+    radial-gradient(800px 500px at 110% 10%, rgba(251, 191, 36, 0.08), transparent 60%),
+    var(--bs-body-bg);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Cards read as raised panels on the stage. */
+.card {
+  --bs-card-bg: rgba(18, 27, 31, 0.92);
+  --bs-card-border-color: var(--bs-border-color);
+  border-radius: 16px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45) !important;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+/* Primary buttons: teal with dark ink, readable and on brand. */
+.btn-primary {
+  --bs-btn-bg: var(--tutti-teal-strong);
+  --bs-btn-border-color: var(--tutti-teal-strong);
+  --bs-btn-color: var(--tutti-ink);
+  --bs-btn-hover-bg: var(--tutti-teal);
+  --bs-btn-hover-border-color: var(--tutti-teal);
+  --bs-btn-hover-color: var(--tutti-ink);
+  --bs-btn-active-bg: var(--tutti-teal);
+  --bs-btn-active-color: var(--tutti-ink);
+  --bs-btn-disabled-bg: var(--tutti-teal-strong);
+  --bs-btn-disabled-border-color: var(--tutti-teal-strong);
+  --bs-btn-disabled-color: var(--tutti-ink);
+  font-weight: 600;
 }
-button:hover {
-  border-color: #646cff;
+.btn-outline-primary {
+  --bs-btn-color: var(--tutti-teal);
+  --bs-btn-border-color: var(--tutti-teal-strong);
+  --bs-btn-hover-bg: var(--tutti-teal-strong);
+  --bs-btn-hover-border-color: var(--tutti-teal-strong);
+  --bs-btn-hover-color: var(--tutti-ink);
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+.form-control {
+  background-color: #0f171a;
+  border-color: var(--bs-border-color);
+}
+.form-control:focus {
+  background-color: #0f171a;
+  border-color: var(--tutti-teal-strong);
+}
+
+.list-group {
+  --bs-list-group-bg: #0f171a;
+  --bs-list-group-border-color: var(--bs-border-color);
+  --bs-list-group-action-hover-bg: rgba(45, 212, 191, 0.08);
+}
+
+/* The big shareable room code on the leader's screen. */
+.room-code {
+  background: rgba(45, 212, 191, 0.07);
+  border: 1px dashed rgba(45, 212, 191, 0.45);
+}
+
+/* Chords sit above the lyric they belong to; amber separates them clearly
+   from the lyric text without competing with it. */
+.chord {
+  color: var(--tutti-amber);
 }
 
 .scroll-area {
@@ -58,15 +101,12 @@ button:focus-visible {
   overflow-y: auto !important;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+/* Slider and toggle used Bootstrap's compiled blue; bring them on brand. */
+.form-range { accent-color: var(--tutti-teal-strong); }
+.form-range::-webkit-slider-thumb { background-color: var(--tutti-teal-strong); }
+.form-range::-moz-range-thumb { background-color: var(--tutti-teal-strong); }
+.form-check-input:checked {
+  background-color: var(--tutti-teal-strong);
+  border-color: var(--tutti-teal-strong);
 }
+.form-check-input:focus { box-shadow: 0 0 0 0.25rem var(--bs-focus-ring-color); }

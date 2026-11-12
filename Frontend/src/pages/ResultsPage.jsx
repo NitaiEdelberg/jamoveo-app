@@ -58,7 +58,7 @@ function ResultsPage() {
   );
 
   return (
-    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh', background: '#f8f9fa' }}>
+    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
       <div className="card shadow" style={{ width: '100%', maxWidth: 450, padding: 24 }}>
         <h2 className="text-center mb-1">
           {browse ? 'All songs' : <>Results for: <b>{query}</b></>}
@@ -77,7 +77,7 @@ function ResultsPage() {
                 {song.artist && <div className="text-muted small">by {song.artist}</div>}
               </div>
               {song.language && (
-                <span className="badge rounded-pill text-bg-light">
+                <span className="badge rounded-pill text-bg-dark border">
                   {song.language === 'he' ? 'עברית' : 'EN'}
                 </span>
               )}
